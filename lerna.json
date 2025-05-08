@@ -1,9 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/lerna.json",
-  "version": "0.5.2",
-  "packages": [
-    "packages/*"
-  ],
+  "version": "0.1.0",
+  "packages": ["packages/*"],
   "npmClient": "pnpm",
   "command": {
     "publish": {
@@ -12,6 +10,7 @@
       "push": true,
       "npmPublish": false,
       "message": "chore(release): publish v%s",
+      "updateInternalDependencies": "patch",
       "access": "public"
     }
   }
