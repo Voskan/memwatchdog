@@ -1,0 +1,67 @@
+{
+  "name": "@memwatchdog/core",
+  "version": "0.1.0",
+  "description": "MemWatchdog — zero-overhead Node.js memory-leak detector with Prometheus metrics, Alertmanager alerts and automatic heap-snapshot capture.",
+  "keywords": [
+    "memwatchdog",
+    "memory-leak",
+    "nodejs",
+    "heap",
+    "heap-snapshot",
+    "prometheus-exporter",
+    "alertmanager",
+    "n-api",
+    "native-addon",
+    "observability",
+    "performance"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Voskan Voskanyan",
+    "email": "voskan1989@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Voskan/memwatchdog.git"
+  },
+  "homepage": "https://github.com/Voskan/memwatchdog#readme",
+  "bugs": {
+    "url": "https://github.com/Voskan/memwatchdog/issues",
+    "email": "voskan1989@gmail.com"
+  },
+
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "watch": "tsc -p tsconfig.json --watch",
+    "clean": "rimraf dist",
+    "test": "vitest run",
+    "lint": "eslint \"src/**/*.ts\""
+  },
+  "dependencies": {
+    "prom-client": "^15.0.0",
+    "undici": "^6.0.0"
+  },
+  "peerDependencies": {
+    "node-gyp-build": "^4.6.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "vitest": "^1.5.0",
+    "@vitest/coverage-v8": "^1.5.0",
+    "@types/node": "^20.0.0"
+  }
+}

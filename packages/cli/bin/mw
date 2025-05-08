@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# ---------------------------------------------------------------------------
+#  Thin shell wrapper that launches the compiled CLI (dist/index.js).
+#  This indirection avoids “node: bad interpreter” issues on systems where
+#  /usr/bin/env is not in PATH during npm‑install of prebuilt packages.
+#  The script is marked as executable by `npm pack` automatically.
+# ---------------------------------------------------------------------------
+
+# Resolve directory of this script even if invoked via symlink
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do
+  DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+
+# Exec compiled CLI with current Node runtime
+exec node "$DIR/../dist/index.js" "$@"

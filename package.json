@@ -1,0 +1,120 @@
+{
+  "name": "memwatchdog",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Production-grade Node.js memory-leak watchdog: zero-overhead heap-sampling, automatic snapshots, Prometheus metrics and Alertmanager alerts.",
+  "keywords": [
+    "memory",
+    "memory-leak",
+    "heap",
+    "heap-snapshot",
+    "heap-profiler",
+    "gc",
+    "garbage-collection",
+    "node",
+    "nodejs",
+    "performance",
+    "monitoring",
+    "observability",
+    "prometheus",
+    "prometheus-exporter",
+    "alertmanager",
+    "alerts",
+    "n-api",
+    "native-addon",
+    "watchdog",
+    "diagnostics",
+    "pm2",
+    "nodemon",
+    "cli",
+    "snapshot-diff",
+    "devtools",
+    "memory-usage",
+    "memory-usage-monitor",
+    "memory-usage-monitoring",
+    "memory-usage-monitoring-tool",
+    "memory-usage-monitoring-toolkit",
+    "memory-usage-monitoring-toolkit-for-nodejs",
+    "metrics",
+    "metrics-exporter",
+    "metrics-exporter-for-nodejs",
+    "monitoring-tool",
+    "monitoring-tool-for-nodejs",
+    "monitoring-toolkit",
+    "backend",
+    "backend-tool",
+    "backend-tool-for-nodejs",
+    "backend-toolkit",
+    "backend-monitoring",
+    "backend-monitoring-tool",
+    "backend-monitoring-tool-for-nodejs",
+    "backend-metrics",
+    "backend-metrics-exporter",
+    "backend-metrics-exporter-for-nodejs"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Voskan Voskanyan",
+    "email": "voskan1989@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Voskan/memwatchdog.git"
+  },
+  "homepage": "https://github.com/Voskan/memwatchdog.git#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "bootstrap": "pnpm install --recursive",
+    "clean": "rimraf \"**/dist\" \"**/build\" \"**/*.tsbuildinfo\"",
+    "build": "lerna run build --stream",
+    "watch": "lerna run watch --parallel",
+    "test": "lerna run test --stream",
+    "lint": "eslint \"**/*.{ts,tsx,js,jsx}\" --max-warnings=0",
+    "prepack": "npm run build",
+    "release": "lerna publish"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
+    "@typescript-eslint/eslint-plugin": "^8.32.0",
+    "@typescript-eslint/parser": "^8.32.0",
+    "eslint": "^9.3.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "^3.10.1",
+    "eslint-plugin-import": "^2.31.0",
+    "husky": "^9.0.0",
+    "lerna": "^8.1.2",
+    "lint-staged": "^15.2.0",
+    "node-addon-api": "^8.3.1",
+    "node-gyp": "^11.2.0",
+    "prebuildify": "^6.0.1",
+    "prettier": "^3.2.5",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.32.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=10.0.0"
+  },
+  "packageManager": "pnpm@10.10.0"
+}

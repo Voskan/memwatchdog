@@ -1,0 +1,11 @@
+# -------------------------------------------------------------------
+#  pnpm-workspace.yaml — Workspace definition for memwatchdog monorepo
+#
+#  Lists every package directory so that `pnpm` hoists shared deps,
+#  runs tasks (`pnpm -r <script>`), and cooperates with Lerna.
+# -------------------------------------------------------------------
+packages:
+  - "packages/*"      # core, cli, pm2‑plugin, future extensions
+  - "native"          # C++ addon (build scripts may run `pnpm build`)
+  - "examples"        # runnable examples using built packages
+  - "benchmarks"      # micro‑benchmarks executed via `pnpm run bench`

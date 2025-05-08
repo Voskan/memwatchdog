@@ -1,0 +1,155 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop, release/**]
+  pull_request:
+    branches: [main, develop, release/**]
+
+env:
+  PNPM_VERSION: 9.2.0
+
+jobs:
+  # ────────────────────────────────────────────────────────────────────
+  #  Static analysis (ESLint + type‑check) and unit tests
+  # ────────────────────────────────────────────────────────────────────
+  test:
+    name: "Lint + Tests • Node ${{ matrix.node }} • ${{ matrix.os }}"
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [20.x, 22.x] # LTS + Current
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # -------- Setup toolchain ---------------------------------------
+      - name: "Install Node.js"
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: "pnpm"
+
+      - name: "Install pnpm"
+        run: npm i -g pnpm@${PNPM_VERSION}
+
+      - name: "Install deps (mono-repo)"
+        run: pnpm install --frozen-lockfile
+
+      # -------- Lint + Type‑check -------------------------------------
+      - name: "Run ESLint"
+        run: pnpm -r lint
+
+      - name: "Type-check (tsc --noEmit)"
+        run: pnpm -r exec tsc -p tsconfig.json --pretty --noEmit
+
+      # -------- Unit tests --------------------------------------------
+      - name: "Unit tests"
+        run: pnpm -r test -- --coverage
+
+      # -------- Upload coverage (Codecov optional) --------------------
+      - name: "Upload coverage"
+        if: matrix.os == 'ubuntu-latest'
+        uses: codecov/codecov-action@v4
+        with:
+          files: |
+            packages/core/coverage/coverage-final.json
+            packages/cli/coverage/coverage-final.json
+          flags: unittests
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+  # ────────────────────────────────────────────────────────────────────
+  #  Build native addon *and* publish prebuilt binaries as workflow
+  #  artefacts (one per OS/arch/ABI). Only on push to main|release/**.
+  # ────────────────────────────────────────────────────────────────────
+  build-addon:
+    name: "Build native addon • Node ${{ matrix.node }} • ${{ matrix.os }} ${{ matrix.arch }}"
+    needs: test
+    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/release/')
+    runs-on: ${{ matrix.os }}
+
+    permissions:
+      contents: write # allow uploading release assets (if desired)
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [20.x]
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        arch: [x64, arm64]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: "Install Node.js"
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: "pnpm"
+          architecture: ${{ matrix.arch }}
+
+      - name: "Install pnpm"
+        run: npm i -g pnpm@${PNPM_VERSION}
+
+      - name: "Install deps (production only)"
+        run: pnpm install --frozen-lockfile --prod --filter "@memwatchdog/core"
+
+      # The native addon lives in /native; script builds & copies to prebuilds/
+      - name: "Build native addon"
+        run: |
+          chmod +x scripts/build-addons.sh
+          ./scripts/build-addons.sh
+
+      - name: "Archive prebuilt binary"
+        uses: actions/upload-artifact@v4
+        with:
+          name: "prebuild-${{ matrix.os }}-${{ matrix.arch }}"
+          path: native/prebuilds/**/memwatchdog_native.node
+          retention-days: 30
+
+  # ────────────────────────────────────────────────────────────────────
+  #  Publish npm packages (core, cli, plugins) *after* successful addon
+  #  build; triggered only on version‑tag pushes (vX.Y.Z).
+  # ────────────────────────────────────────────────────────────────────
+  publish:
+    name: "Publish to npm"
+    needs: build-addon
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+
+    environment: npm-publish
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: "Install Node.js"
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          registry-url: "https://registry.npmjs.org"
+
+      - name: "Install pnpm"
+        run: npm i -g pnpm@${PNPM_VERSION}
+
+      - name: "Install dependencies"
+        run: pnpm install --frozen-lockfile
+
+      # Merge artefacts (prebuilds) from previous job
+      - name: "Download prebuilt binaries"
+        uses: actions/download-artifact@v4
+        with:
+          path: native/prebuilds
+
+      # Re‑build TypeScript once to ensure dist/ is fresh
+      - name: "Build all packages"
+        run: pnpm run build
+
+      # Publish each public package; --access public is handled by publishConfig
+      - name: "Publish packages to npm"
+        run: |
+          pnpm -r exec npm publish --tag latest
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

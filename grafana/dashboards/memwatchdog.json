@@ -1,0 +1,130 @@
+{
+  "id": null,
+  "title": "MemWatchdog - Node.JS Memory-Leak Overview",
+  "tags": ["memwatchdog", "heap", "prometheus"],
+  "timezone": "browser",
+  "schemaVersion": 37,
+  "version": 1,
+  "refresh": "30s",
+  "editable": true,
+  "templating": {
+    "list": [
+      {
+        "name": "job",
+        "type": "query",
+        "datasource": "Prometheus",
+        "definition": "label_values(memwatchdog_heap_used_bytes, job)",
+        "label": "Job",
+        "current": {"text": "All", "value": ""},
+        "includeAll": true,
+        "multi": false
+      },
+      {
+        "name": "instance",
+        "type": "query",
+        "datasource": "Prometheus",
+        "definition": "label_values(memwatchdog_heap_used_bytes{job=\"$job\"}, instance)",
+        "label": "Instance",
+        "current": {"text": "All", "value": ""},
+        "includeAll": true,
+        "multi": false,
+        "refresh": 2
+      }
+    ]
+  },
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "Heap Used (bytes)",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "memwatchdog_heap_used_bytes{job=\"$job\",instance=\"$instance\"}",
+          "legendFormat": "{{instance}}"
+        }
+      ],
+      "gridPos": {"x": 0, "y": 0, "w": 12, "h": 8},
+      "fieldConfig": {
+        "defaults": {"unit": "bytes", "min": 0},
+        "overrides": []
+      }
+    },
+    {
+      "type": "gauge",
+      "title": "Heap Growth Slope (bytes/ms)",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "memwatchdog_heap_slope_bytes_per_ms{job=\"$job\",instance=\"$instance\"}",
+          "legendFormat": "Slope"
+        }
+      ],
+      "gridPos": {"x": 12, "y": 0, "w": 6, "h": 8},
+      "options": {
+        "reduceOptions": {"calcs": ["lastNotNull"], "fields": "Numeric"},
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {"color": "green", "value": null},
+              {"color": "orange", "value": 1024},
+              {"color": "red", "value": 2048}
+            ]
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Leak Alerts Fired",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "increase(memwatchdog_leak_alert_total{job=\"$job\",instance=\"$instance\"}[24h])",
+          "legendFormat": "Alerts (24h)"
+        }
+      ],
+      "gridPos": {"x": 18, "y": 0, "w": 6, "h": 8},
+      "options": {
+        "reduceOptions": {"calcs": ["lastNotNull"], "fields": "Numeric"},
+        "graphMode": "none",
+        "textMode": "value"
+      },
+      "fieldConfig": {
+        "defaults": {"unit": "none", "decimals": 0},
+        "overrides": []
+      }
+    },
+    {
+      "type": "table",
+      "title": "Current Heap Slope by Instance",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "memwatchdog_heap_slope_bytes_per_ms{job=\"$job\"}",
+          "legendFormat": "{{instance}}"
+        }
+      ],
+      "gridPos": {"x": 0, "y": 8, "w": 24, "h": 8},
+      "options": {"showHeader": true},
+      "fieldConfig": {
+        "defaults": {"unit": "bytes", "decimals": 2},
+        "overrides": []
+      }
+    }
+  ],
+  "links": [],
+  "annotations": {
+    "list": []
+  },
+  "time": {"from": "now-12h", "to": "now"},
+  "timepicker": {"refresh_intervals": ["15s", "30s", "1m", "5m", "15m"], "panels": []},
+  "graphTooltip": 0
+}

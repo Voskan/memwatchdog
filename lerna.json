@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json.schemastore.org/lerna.json",
+  "version": "0.1.0",
+  "packages": ["packages/*"],
+  "npmClient": "pnpm",
+
+  "command": {
+    "publish": {
+      "conventionalCommits": true,
+      "gitTagVersion": true,
+      "push": true,
+      "npmPublish": false,
+      "message": "chore(release): publish v%s"
+    }
+  }
+}
