@@ -56,7 +56,7 @@
     "lint": "eslint \"src/**/*.ts\""
   },
   "dependencies": {
-    "@memwatchdog/core": "^0.1.5",
+    "@memwatchdog/core": "workspace:*",
     "chalk": "^5.4.0",
     "commander": "^12.0.0"
   },
