@@ -9,7 +9,8 @@
       "gitTagVersion": true,
       "push": true,
       "npmPublish": false,
-      "message": "chore(release): publish v%s"
+      "message": "chore(release): publish v%s",
+      "access": "public"
     }
   }
 }

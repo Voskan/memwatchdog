@@ -64,5 +64,9 @@
     "@vitest/coverage-v8": "^1.5.0",
     "typescript": "^5.4.0",
     "vitest": "^1.5.0"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "6158237e9431d9564fc9ff50ecdc8e84640da66d"
 }
