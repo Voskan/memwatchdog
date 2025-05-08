@@ -1,6 +1,6 @@
 {
   "name": "@memwatchdog/cli",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "MemWatchdog CLI - fast diff tool for Node.js heap-snapshots that pin-points retaining paths and visualises memory-leaks in colour.",
   "keywords": [
     "memwatchdog",
@@ -56,7 +56,7 @@
     "lint": "eslint \"src/**/*.ts\""
   },
   "dependencies": {
-    "@memwatchdog/core": "^0.1.4",
+    "@memwatchdog/core": "^0.1.5",
     "chalk": "^5.4.0",
     "commander": "^12.0.0"
   },
