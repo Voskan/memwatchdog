@@ -3,37 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [0.1.5](https://github.com/Voskan/memwatchdog/compare/v0.1.1...v0.1.5) (2025-05-08)
+## [0.1.6](https://github.com/Voskan/memwatchdog/compare/v0.1.1...v0.1.6) (2025-05-08)
 
 **Note:** Version bump only for package memwatchdog
 
+## [0.1.5](https://github.com/Voskan/memwatchdog/compare/v0.1.1...v0.1.5) (2025-05-08)
 
-
-
+**Note:** Version bump only for package memwatchdog
 
 ## [0.1.4](https://github.com/Voskan/memwatchdog/compare/v0.1.1...v0.1.4) (2025-05-08)
 
 **Note:** Version bump only for package memwatchdog
 
-
-
-
-
 ## [0.1.3](https://github.com/Voskan/memwatchdog/compare/v0.1.1...v0.1.3) (2025-05-08)
 
 **Note:** Version bump only for package memwatchdog
 
-
-
-
-
 ## [0.1.2](https://github.com/Voskan/memwatchdog/compare/v0.1.1...v0.1.2) (2025-05-08)
 
 **Note:** Version bump only for package memwatchdog
-
-
-
-
 
 ## [0.1.1](https://github.com/Voskan/memwatchdog/compare/v0.5.0...v0.1.1) (2025-05-08)
 
