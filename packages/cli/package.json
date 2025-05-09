@@ -1,6 +1,6 @@
 {
   "name": "@memwatchdog/cli",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "MemWatchdog CLI - fast diff tool for Node.js heap-snapshots that pin-points retaining paths and visualises memory-leaks in colour.",
   "keywords": [
     "memwatchdog",
