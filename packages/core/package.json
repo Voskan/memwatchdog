@@ -1,6 +1,6 @@
 {
   "name": "@memwatchdog/core",
-  "version": "0.1.19",
+  "version": "0.1.20",
   "description": "MemWatchdog — zero-overhead Node.js memory-leak detector with Prometheus metrics, Alertmanager alerts and automatic heap-snapshot capture.",
   "keywords": [
     "memwatchdog",
