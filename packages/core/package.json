@@ -30,7 +30,7 @@
     "email": "voskan1989@gmail.com"
   },
   "type": "module",
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
@@ -38,16 +38,16 @@
   ],
   "exports": {
     ".": {
+      "require": "./dist/index.cjs",
       "import": "./dist/index.js",
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.js"
+      "types": "./dist/index.d.ts"
     }
   },
   "engines": {
     "node": ">=18.0.0"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json && node ../../scripts/build-cjs-shim.js",
     "watch": "tsc -p tsconfig.json --watch",
     "clean": "rimraf dist",
     "test": "vitest run",
