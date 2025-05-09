@@ -7,7 +7,7 @@ set -euo pipefail
 
 # ─── Paths ────────────────────────────────────────────────────────────────────
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-NATIVE_DIR="$REPO_DIR/native"
+NATIVE_DIR="$REPO_DIR/packages/core/native"
 PREBUILDS_DIR="$NATIVE_DIR/prebuilds"
 
 # ─── Helpers ─────────────────────────────────────────────────────────────────

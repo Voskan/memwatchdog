@@ -41,7 +41,7 @@ import {
 } from "./alert.js";
 
 const require = createRequire(import.meta.url);
-const nativeDir = join(dirname(import.meta.url), "..", "..", "..", "native");
+const nativeDir = join(dirname(import.meta.url), "..", "native");
 const native: NativeAddon = require("node-gyp-build")(nativeDir);
 
 /* -------------------------------------------------------------------------- */

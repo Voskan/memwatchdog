@@ -44,14 +44,10 @@ import {
 /* ------------------------------------------------------------------ */
 /*  Load native addon                                                 */
 /* ------------------------------------------------------------------ */
+
 const require = createRequire(import.meta.url);
-const nativeDir = join(
-  dirname(fileURLToPath(import.meta.url)),
-  "..",
-  "..",
-  "..",
-  "native"
-);
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const nativeDir = join(__dirname, "..", "native");
 const native: NativeAddon = require("node-gyp-build")(nativeDir);
 
 /* -------------------------------------------------------------------------- */
