@@ -30,7 +30,10 @@
  */
 
 import { EventEmitter } from "node:events";
-import { join } from "node:path";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+import { createRequire } from "node:module";
+
 import { PrometheusExporter, ExporterOptions as PromOpts } from "./exporter.js";
 import {
   AlertManagerClient,
@@ -38,10 +41,18 @@ import {
   AlertManagerClientOptions,
 } from "./alert.js";
 
-/* eslint-disable @typescript-eslint/no-var-requires */
-const native: NativeAddon = require("node-gyp-build")(
-  join(__dirname, "..", "..", "..", "native")
+/* ------------------------------------------------------------------ */
+/*  Load native addon                                                 */
+/* ------------------------------------------------------------------ */
+const require = createRequire(import.meta.url);
+const nativeDir = join(
+  dirname(fileURLToPath(import.meta.url)),
+  "..",
+  "..",
+  "..",
+  "native"
 );
+const native: NativeAddon = require("node-gyp-build")(nativeDir);
 
 /* -------------------------------------------------------------------------- */
 /*  Types                                                                     */
