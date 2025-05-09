@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.11](https://github.com/Voskan/memwatchdog/compare/v0.1.10...v0.1.11) (2025-05-09)
+
+**Note:** Version bump only for package @memwatchdog/cli
+
 ## [0.1.10](https://github.com/Voskan/memwatchdog/compare/v0.1.9...v0.1.10) (2025-05-09)
 
 **Note:** Version bump only for package @memwatchdog/cli
