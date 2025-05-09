@@ -28,15 +28,15 @@
 
 import { join } from "node:path";
 import { EventEmitter } from "node:events";
-import { HeapSampler, HeapSample } from "./sampler";
+import { HeapSampler, HeapSample } from "./sampler.js";
 import {
   PrometheusExporter,
   ExporterOptions as PrometheusOpts,
-} from "./exporter";
+} from "./exporter.js";
 import {
   AlertManagerClient,
   AlertManagerClientOptions as AMClientOpts,
-} from "./alert";
+} from "./alert.js";
 
 /* eslint‑disable @typescript-eslint/no-var-requires */
 const native: NativeAddon = require("node-gyp-build")(

@@ -31,12 +31,12 @@
 
 import { EventEmitter } from "node:events";
 import { join } from "node:path";
-import { PrometheusExporter, ExporterOptions as PromOpts } from "./exporter";
+import { PrometheusExporter, ExporterOptions as PromOpts } from "./exporter.js";
 import {
   AlertManagerClient,
   MemLeakAlertPayload,
   AlertManagerClientOptions,
-} from "./alert";
+} from "./alert.js";
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const native: NativeAddon = require("node-gyp-build")(
