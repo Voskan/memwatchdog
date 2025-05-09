@@ -1,4 +1,4 @@
-# Node.JS Memory-Leak Detector 🛡️ MemWatchdog
+# Node.JS Memory-Leak Detector - MemWatchdog 🛡️
 
 **MemWatchdog is an open-source Node-JS Production‑grade memory-leak detector that exposes Prometheus metrics and sends Alertmanager alerts.**
 

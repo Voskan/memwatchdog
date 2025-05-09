@@ -1,7 +1,6 @@
-# MemWatchdog CLI – Heap-Snapshot Diff Tool for Node Apps
+# MemWatchdog CLI - Heap-Snapshot Diff Tool for Node Apps
 
-The **CLI** complements the runtime watchdog with tooling for _offline analysis_
-and quick inspections of `.heapsnapshot` files.
+The **CLI** complements the runtime watchdog with tooling for _offline analysis_ and quick inspections of `.heapsnapshot` files.
 
 ```bash
 pnpm dlx @memwatchdog/cli@latest  # one‑off run
