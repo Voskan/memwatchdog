@@ -7,7 +7,7 @@
     "declarationMap": true,
     "sourceMap": true,
     "target": "ES2022",
-    "module": "CommonJS",
+    "module": "ESNext",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "resolveJsonModule": true,
