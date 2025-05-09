@@ -39,10 +39,13 @@ import {
   AlertManagerClient,
   AlertManagerClientOptions as AMClientOpts,
 } from "./alert.js";
+import { fileURLToPath } from "node:url";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const require = createRequire(import.meta.url);
-const nativeDir = join(dirname(import.meta.url), "..", "..", "..", "native");
-console.log(nativeDir, "dir---");
+
+const nativeDir = join(__dirname, "..", "native", "prebuilds");
 
 const native: NativeAddon = require("node-gyp-build")(nativeDir);
 
